@@ -20,23 +20,42 @@
     An introduction to using Swift's new concurrency features in SwiftUI
     <br />
     <br />
-    <a href="https://github.com/peterfriese/SwiftUI-Concurrency-Essentials/discussions">Join the discussion</a>
+    <a href="https://github.com/peterfriese/SwiftUI-Concurrency-Essentials/discussions">Discuss with me</a>
     ·
-    <a href="https://github.com/peterfriese/SwiftUI-Concurrency-Essentials/issues">Report Bug</a>
+    <a href="https://github.com/peterfriese/SwiftUI-Concurrency-Essentials/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
     ·
-    <a href="https://github.com/peterfriese/SwiftUI-Concurrency-Essentials/issues">Request Feature</a>
+    <a href="https://github.com/peterfriese/SwiftUI-Concurrency-Essentials/issues/new?assignees=&labels=&template=feature_request.md&title=">Request Feature</a>
   </p>
 </p>
 
 
-## About The Project
+# Articles and videos
 
-## Requirements
+The code in this repository accompanies a series of articles and videos that aim at providing a gentle introduction to Swift Concurrency in the context of SwiftUI.
+
+* [x] Getting started with Swift Concurrency in SwiftUI ([Article](https://peterfriese.dev/swiftui-concurrency-essentials-part1/) | [Video](https://youtu.be/pvtWLmSRimk))
+* [ ] Fetching images asynchronoursly using `AsyncImage`
+* [ ] Using Task cancellation for more efficient UIs
+* [ ] Running work in parallel with Swift Structured Concurrency
+* [ ] Using Firebase's asynchronous APIs with async/await
+* [ ] Refactoring and other tooling
+* [ ] Swift Concurrency and SwiftUI behind the scenes
+
+# Contributing
+
+Contributions are welcome!
+
+* If you found a typo in an article or a bug in one of the samples, consider [filing a bug report](https://github.com/peterfriese/SwiftUI-Concurrency-Essentials/issues/new?assignees=&labels=&template=bug_report.md&title=)
+* Even better, consider fixing the bug and sending me a PR
+* If you've got suggestions for other things I should write/talk about, send me a [feature request](https://github.com/peterfriese/SwiftUI-Concurrency-Essentials/issues/new?assignees=&labels=&template=feature_request.md&title=)
+* Want to discuss w/ me and the other folks on this repository? Come on over to the [discussions forum](https://github.com/peterfriese/SwiftUI-Concurrency-Essentials/discussions)!
+
+# Requirements
 
 * Xcode 13
 * Swift 5.5
 
-## License
+# License
 
 Distributed under the Apache 2 License. See `LICENSE` for more information.
 
