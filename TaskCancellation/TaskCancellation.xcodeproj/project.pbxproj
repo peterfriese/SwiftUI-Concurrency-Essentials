@@ -17,6 +17,7 @@
 		886C22392695DBD900F43F1E /* BookSearchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C22382695DBD900F43F1E /* BookSearchRowView.swift */; };
 		886C223B26964A8700F43F1E /* BookSearchNoCancellationLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C223A26964A8700F43F1E /* BookSearchNoCancellationLiveView.swift */; };
 		886C223D2696DF4B00F43F1E /* BookSearchTaskCancellationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C223C2696DF4B00F43F1E /* BookSearchTaskCancellationView.swift */; };
+		88CEB70E26985B9000A2601B /* CooperativeTaskCancellationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEB70D26985B9000A2601B /* CooperativeTaskCancellationView.swift */; };
 		88F741812696F3D300F981AD /* BookSearchActorTaskCancellationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F741802696F3D300F981AD /* BookSearchActorTaskCancellationView.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		886C22382695DBD900F43F1E /* BookSearchRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchRowView.swift; sourceTree = "<group>"; };
 		886C223A26964A8700F43F1E /* BookSearchNoCancellationLiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchNoCancellationLiveView.swift; sourceTree = "<group>"; };
 		886C223C2696DF4B00F43F1E /* BookSearchTaskCancellationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchTaskCancellationView.swift; sourceTree = "<group>"; };
+		88CEB70D26985B9000A2601B /* CooperativeTaskCancellationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooperativeTaskCancellationView.swift; sourceTree = "<group>"; };
 		88F741802696F3D300F981AD /* BookSearchActorTaskCancellationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchActorTaskCancellationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +110,7 @@
 				886C223A26964A8700F43F1E /* BookSearchNoCancellationLiveView.swift */,
 				886C223C2696DF4B00F43F1E /* BookSearchTaskCancellationView.swift */,
 				88F741802696F3D300F981AD /* BookSearchActorTaskCancellationView.swift */,
+				88CEB70D26985B9000A2601B /* CooperativeTaskCancellationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 				886C223B26964A8700F43F1E /* BookSearchNoCancellationLiveView.swift in Sources */,
 				886C22392695DBD900F43F1E /* BookSearchRowView.swift in Sources */,
 				886C223D2696DF4B00F43F1E /* BookSearchTaskCancellationView.swift in Sources */,
+				88CEB70E26985B9000A2601B /* CooperativeTaskCancellationView.swift in Sources */,
 				886C22202695D95300F43F1E /* TaskCancellationApp.swift in Sources */,
 				886C222F2695D9B100F43F1E /* Book.swift in Sources */,
 				886C22312695D9E100F43F1E /* OpenLibrarySearch.swift in Sources */,

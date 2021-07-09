@@ -27,6 +27,9 @@ struct MenuView: View {
         NavigationButton(Label("Search books (actor, live)", systemImage: "4.square")) {
           BookSearchActorTaskCancellationView()
         }
+        NavigationButton(Label("Cooperative cancellation", systemImage: "5.square")) {
+          CooperativeTaskCancellationView()
+        }
       }
     }
   }
