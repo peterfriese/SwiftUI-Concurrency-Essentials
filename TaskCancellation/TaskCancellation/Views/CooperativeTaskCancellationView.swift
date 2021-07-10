@@ -43,7 +43,7 @@ fileprivate class ViewModel: ObservableObject {
       // this is the real computation
       (current, last) = (current + last, current)
       
-      // simulate compute-intensive behaviour
+      // simulate compute-intensive behaviour (pause for 0.75 sec)
       await Task.sleep(75_000_000)
       
       // report progress
@@ -67,8 +67,6 @@ fileprivate class ViewModel: ObservableObject {
   
 }
 
-
-
 struct CooperativeTaskCancellationView: View {
   @StateObject
   private var viewModel = ViewModel()
@@ -78,7 +76,7 @@ struct CooperativeTaskCancellationView: View {
       Section("Input") {
         TextField("Value", value: $viewModel.input, format: .number, prompt: Text("Enter a value"))
         Button(action: { viewModel.compute() }) {
-          Text("Compute the nth fibonacci numnber")
+          Text("Compute the nth fibonacci number")
         }
         Button(role: .destructive, action: { viewModel.abort() }) {
           Text("Abort")
