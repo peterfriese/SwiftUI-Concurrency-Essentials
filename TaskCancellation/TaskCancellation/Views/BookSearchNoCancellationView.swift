@@ -18,6 +18,7 @@ fileprivate class ViewModel: ObservableObject {
     let currentSearchTerm = searchTerm.trimmingCharacters(in: .whitespaces)
     if currentSearchTerm.isEmpty {
       result = []
+      isSearching = false
     }
     else {
       
