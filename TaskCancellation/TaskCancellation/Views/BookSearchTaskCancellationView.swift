@@ -17,14 +17,13 @@ fileprivate class ViewModel: ObservableObject {
   private var searchTask: Task.Handle<Void, Never>?
   
   func executeQuery() async {
+    searchTask?.cancel()
     let currentSearchTerm = searchTerm.trimmingCharacters(in: .whitespaces)
     if currentSearchTerm.isEmpty {
       result = []
       isSearching = false
     }
     else {
-      searchTask?.cancel()
-      
       searchTask = async {
         isSearching = true
         result = await searchBooks(matching: searchTerm)
