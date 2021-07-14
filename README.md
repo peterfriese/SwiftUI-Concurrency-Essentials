@@ -34,8 +34,8 @@
 The code in this repository accompanies a series of articles and videos that aim at providing a gentle introduction to Swift Concurrency in the context of SwiftUI.
 
 * [x] Getting started with Swift Concurrency in SwiftUI ([Article](https://peterfriese.dev/swiftui-concurrency-essentials-part1/) | [Video](https://youtu.be/pvtWLmSRimk))
+* [x] Using Task cancellation for more efficient UIs ([Article](https://peterfriese.dev/swiftui-concurrency-essentials-part2/) | [Video](https://www.youtube.com/watch?v=KdHd4rwK_oc))
 * [ ] Fetching images asynchronoursly using `AsyncImage`
-* [ ] Using Task cancellation for more efficient UIs
 * [ ] Running work in parallel with Swift Structured Concurrency
 * [ ] Using Firebase's asynchronous APIs with async/await
 * [ ] Refactoring and other tooling
