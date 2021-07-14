@@ -14,7 +14,6 @@ struct TaskCancellationApp: App {
       NavigationView {
         MenuView()
           .navigationTitle("Task cancellation")
-          .accentColor(Color(UIColor.systemPink))
       }
     }
   }
