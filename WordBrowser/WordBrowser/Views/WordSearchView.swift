@@ -22,7 +22,7 @@ class WordsAPIViewModel: ObservableObject {
 
   
   func executeQuery() async {
-    async {
+    Task {
       isSearching.toggle()
       result = await search(for: searchTerm)
       isSearching.toggle()
@@ -72,7 +72,7 @@ struct WordSearchView: View {
       }
     }
     .onSubmit(of: .search) {
-      async {
+      Task {
         await viewModel.executeQuery()
       }
     }

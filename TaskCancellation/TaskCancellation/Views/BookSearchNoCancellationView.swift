@@ -22,7 +22,7 @@ fileprivate class ViewModel: ObservableObject {
     }
     else {
       
-      async {
+      Task {
         isSearching = true
         result = await searchBooks(matching: searchTerm)
         isSearching = false
@@ -73,7 +73,7 @@ struct BookSearchNoCancellationView: View {
     }
     .searchable(text: $viewModel.searchTerm)
     .onSubmit(of: .search) {
-      async {
+      Task {
         await viewModel.executeQuery()
       }
     }
