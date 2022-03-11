@@ -7,7 +7,18 @@
 
 import SwiftUI
 
-@MainActor
+// @MainActor
+//
+// Change for Swift 5.6 / Xcode 13.3:
+// Using @MainActor here will result in a warning when initialising the ObservableObject like this:
+//   @StateObject var viewModel = WordDetailsViewModel()
+//
+// This will result in the following warning:
+// Expression requiring global actor 'MainActor' cannot appear in default-value expression of
+// property '_viewModel'; this is an error in Swift 6
+//
+// To resolve this issue, we only mark the functions that actually make changes to published properties
+// using @MainActor.
 fileprivate class ViewModel: ObservableObject {
   @Published var searchTerm: String = ""
   
@@ -16,6 +27,7 @@ fileprivate class ViewModel: ObservableObject {
   
   private var searchTask: Task<Void, Never>?
   
+  @MainActor
   func executeQuery() async {
     searchTask?.cancel()
     let currentSearchTerm = searchTerm.trimmingCharacters(in: .whitespaces)

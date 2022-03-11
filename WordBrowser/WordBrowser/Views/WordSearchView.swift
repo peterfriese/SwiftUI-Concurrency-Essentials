@@ -7,7 +7,18 @@
 
 import SwiftUI
 
-@MainActor
+// @MainActor
+//
+// Change for Swift 5.6 / Xcode 13.3:
+// Using @MainActor here will result in a warning when initialising the ObservableObject like this:
+//   @StateObject var viewModel = WordDetailsViewModel()
+//
+// This will result in the following warning:
+// Expression requiring global actor 'MainActor' cannot appear in default-value expression of
+// property '_viewModel'; this is an error in Swift 6
+//
+// To resolve this issue, we only mark the functions that actually make changes to published properties
+// using @MainActor.
 class WordsAPIViewModel: ObservableObject {
   @Published var searchTerm: String = ""
   @Published var isSearching = false
@@ -20,7 +31,7 @@ class WordsAPIViewModel: ObservableObject {
       .assign(to: &$definitions)
   }
 
-  
+  @MainActor
   func executeQuery() async {
     Task {
       isSearching.toggle()
@@ -42,9 +53,12 @@ class WordsAPIViewModel: ObservableObject {
   private func search(for term: String) async -> Word {
     // build the request
     let request = buildURLRequest(for: term)
-    
+
     do {
-      let (data, _) = try await URLSession.shared.data(for: request)
+      let (data, response) = try await URLSession.shared.data(for: request)
+      guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+        throw WordsAPIError.invalidServerResponse
+      }
       return try Word(data: data)
     }
     catch {
@@ -66,6 +80,7 @@ struct WordSearchView: View {
       }
     }
     .searchable(text: $viewModel.searchTerm)
+    .autocapitalization(.none)
     .overlay {
       if viewModel.isSearching {
         ProgressView()
@@ -86,6 +101,8 @@ struct WordSearchView: View {
 
 struct WordSearchView_Previews: PreviewProvider {
   static var previews: some View {
-    WordSearchView()
+    NavigationView {
+      WordSearchView()
+    }
   }
 }

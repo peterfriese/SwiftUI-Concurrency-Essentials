@@ -11,7 +11,18 @@
 import SwiftUI
 import Combine
 
-@MainActor
+// @MainActor
+//
+// Change for Swift 5.6 / Xcode 13.3:
+// Using @MainActor here will result in a warning when initialising the ObservableObject like this:
+//   @StateObject var viewModel = WordDetailsViewModel()
+//
+// This will result in the following warning:
+// Expression requiring global actor 'MainActor' cannot appear in default-value expression of
+// property '_viewModel'; this is an error in Swift 6
+//
+// To resolve this issue, we only mark the functions that actually make changes to published properties
+// using @MainActor.
 class LibraryViewModel: ObservableObject {
   @Published var searchText = ""
   @Published var randomWord = "partially"
@@ -49,6 +60,7 @@ class LibraryViewModel: ObservableObject {
   }
   
   private func fetchRandomWord() async -> Word {
+    print("\(#function) is on main thread: \(Thread.isMainThread)")
     // build the request
     let request = buildURLRequest()
     
@@ -65,14 +77,16 @@ class LibraryViewModel: ObservableObject {
     }
   }
 
+  @MainActor
+  func refresh() async {
+    print("\(#function) is on main thread BEFORE await: \(Thread.isMainThread)")
+    let result = await fetchRandomWord()
+    randomWord = result.word
+    print("\(#function) is on main thread AFTER await: \(Thread.isMainThread)")
+  }
   
   func addFavourite(_ word: String) {
     favourites.append(word)
-  }
-  
-  func refresh() async {
-    let result = await fetchRandomWord()
-    randomWord = result.word
   }
 }
 
@@ -87,6 +101,7 @@ struct LibraryView: View {
       SectionView("My favourites", words: viewModel.filteredFavourites)
     }
     .searchable(text: $viewModel.searchText)
+    .autocapitalization(.none)
     .refreshable {
       await viewModel.refresh()
     }

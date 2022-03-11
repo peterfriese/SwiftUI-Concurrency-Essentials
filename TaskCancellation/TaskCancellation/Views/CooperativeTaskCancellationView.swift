@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 fileprivate class ViewModel: ObservableObject {
   @Published var input: Int = 50
   @Published private(set) var output: Int?
@@ -15,7 +16,6 @@ fileprivate class ViewModel: ObservableObject {
   
   private var computeHandle: Task<Void, Error>?
   
-  @MainActor
   func compute() {
     output = nil
     errorMessage = nil
@@ -69,7 +69,10 @@ fileprivate class ViewModel: ObservableObject {
 
 struct CooperativeTaskCancellationView: View {
   @StateObject
-  private var viewModel = ViewModel()
+  private var viewModel: ViewModel
+  init() {
+    self._viewModel = StateObject(wrappedValue: ViewModel())
+  }
   
   var body: some View {
     Form {
