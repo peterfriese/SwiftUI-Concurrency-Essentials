@@ -30,16 +30,28 @@ fileprivate actor OpenLibrarySearchService {
   }
 }
 
-@MainActor
+// @MainActor
+//
+// Change for Swift 5.6 / Xcode 13.3:
+// Using @MainActor here will result in a warning when initialising the ObservableObject like this:
+//   @StateObject var viewModel = WordDetailsViewModel()
+//
+// This will result in the following warning:
+// Expression requiring global actor 'MainActor' cannot appear in default-value expression of
+// property '_viewModel'; this is an error in Swift 6
+//
+// To resolve this issue, we only mark the functions that actually make changes to published properties
+// using @MainActor.
 fileprivate class ViewModel: ObservableObject {
   @Published var searchTerm: String = ""
   
   @Published private(set) var result: [Book] = []
   @Published private(set) var isSearching = false
   
-  private var searchTask: Task.Handle<Void, Error>?
+  private var searchTask: Task<Void, Error>?
   private var searchService = OpenLibrarySearchService()
   
+  @MainActor
   func executeQuery() async {
     searchTask?.cancel()
     let currentSearchTerm = searchTerm.trimmingCharacters(in: .whitespaces)
@@ -48,7 +60,7 @@ fileprivate class ViewModel: ObservableObject {
       isSearching = false
     }
     else {
-      searchTask = async {
+      searchTask = Task {
         isSearching = true
         result = await searchBooks(matching: searchTerm)
         if !Task.isCancelled {
@@ -104,7 +116,7 @@ struct BookSearchActorTaskCancellationView: View {
     // uncomment the following line to kick off the search 0.8 seconds after the user stopped typing
     //    .onReceive(viewModel.$searchTerm.debounce(for: 0.8, scheduler: RunLoop.main)) { searchTerm in
     .onReceive(viewModel.$searchTerm) { searchTerm in
-      async {
+      Task {
         await viewModel.executeQuery()
       }
     }

@@ -7,25 +7,25 @@
 
 import SwiftUI
 
+@MainActor
 fileprivate class ViewModel: ObservableObject {
   @Published var input: Int = 50
   @Published private(set) var output: Int?
   @Published private(set) var errorMessage: String?
   @Published private(set) var progress: Int = 0
   
-  private var computeHandle: Task.Handle<Void, Error>?
+  private var computeHandle: Task<Void, Error>?
   
-  @MainActor
   func compute() {
     output = nil
     errorMessage = nil
-    computeHandle = async {
+    computeHandle = Task {
       do {
         output = try await fiboncacci(nth: input) { progress in
           self.progress = ((progress + 1) * 100 / self.input)
         }
       }
-      catch is Task.CancellationError {
+      catch is CancellationError {
         errorMessage = "You cancelled the computation"
       }
     }
@@ -69,7 +69,10 @@ fileprivate class ViewModel: ObservableObject {
 
 struct CooperativeTaskCancellationView: View {
   @StateObject
-  private var viewModel = ViewModel()
+  private var viewModel: ViewModel
+  init() {
+    self._viewModel = StateObject(wrappedValue: ViewModel())
+  }
   
   var body: some View {
     Form {
