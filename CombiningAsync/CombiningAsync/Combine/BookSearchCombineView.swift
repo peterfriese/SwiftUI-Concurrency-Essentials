@@ -22,30 +22,15 @@ fileprivate class ViewModel: ObservableObject {
   init() {
     $searchTerm
       .debounce(for: 0.8, scheduler: DispatchQueue.main)
-      .perform { self.isSearching = true }
-      // this is equivalent to the following:
-//      .map { value -> String in
-//        self.isSearching = true
-//        return value
-//      }
-      .flatMap { searchTerm -> AnyPublisher<[Book], Never> in
-        
-        // consider building a progress toggle passthrough operator. Check Mark's book to see what he suggests
-//        self.isSearching = true
-        print("FlatMap on thread: \(Thread.current) [\(Thread.isMainThread)]" )
-        let result = self.searchBooks(matching: searchTerm)
-        
-        // NOTE: calling self.searchBooks will return immediately (as it returns a publisher)
-        return result
+      .map { searchTerm -> AnyPublisher<[Book], Never> in
+        self.isSearching = true
+        return self.searchBooks(matching: searchTerm)
       }
-      .subscribe(on: DispatchQueue.global()) // since we use debounce, the pipeline will subscribe on the main thread, and this line has no effect!
+      .switchToLatest()
       .receive(on: DispatchQueue.main)
-      .eraseToAnyPublisher()
-      .perform { self.isSearching = false }
       .sink(receiveValue: { books in
-        print("Receiving on thread: \(Thread.current) [\(Thread.isMainThread)]" )
         self.result = books
-//        self.isSearching = false
+        self.isSearching = false
       })
       .store(in: &cancellables)
   }
@@ -59,9 +44,7 @@ fileprivate class ViewModel: ObservableObject {
       .decode(type: OpenLibrarySearchResult.self, decoder: JSONDecoder())
       .map(\.books)
       .compactMap { openLibraryBooks in
-        openLibraryBooks?.map { openLibrarySearchResultBook in
-          Book(from: openLibrarySearchResultBook)
-        }
+        openLibraryBooks?.map { Book(from: $0) }
       }
       .replaceError(with: [Book]())
       .eraseToAnyPublisher()

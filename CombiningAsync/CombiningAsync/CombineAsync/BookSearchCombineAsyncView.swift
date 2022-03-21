@@ -22,6 +22,7 @@ fileprivate class ViewModel: ObservableObject {
   init() {
     $searchTerm
       .debounce(for: 0.8, scheduler: DispatchQueue.main)
+      .removeDuplicates()
       .perform { self.isSearching = true }
       .await { searchTerm in
         await self.searchBooks(matching: searchTerm)
@@ -30,7 +31,8 @@ fileprivate class ViewModel: ObservableObject {
 //      .flatMap { value in
 //        Future { promise in
 //          Task {
-//            await self.searchBooks(matching: value)
+//            let result = await self.searchBooks(matching: value)
+//            promise(.success(result))
 //          }
 //        }
 //      }
