@@ -21,9 +21,16 @@ fileprivate class ViewModel: ObservableObject {
   
   init() {
     $searchTerm
+      .dropFirst()
       .debounce(for: 0.8, scheduler: DispatchQueue.main)
       .removeDuplicates()
-      .perform { self.isSearching = true }
+      .handleEvents {
+        self.isSearching = true
+      }
+    // this is equivalent to the following call:
+//      .handleEvents(receiveOutput: { output in
+//        self.isSearching = true
+//      })
       .await { searchTerm in
         await self.searchBooks(matching: searchTerm)
       }
@@ -38,7 +45,9 @@ fileprivate class ViewModel: ObservableObject {
 //      }
       .receive(on: DispatchQueue.main)
       .eraseToAnyPublisher()
-      .perform { self.isSearching = false }
+      .handleEvents {
+        self.isSearching = false
+      }
       .assign(to: &$result)
   }
   
