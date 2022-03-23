@@ -27,32 +27,29 @@ extension Publisher {
     .eraseToAnyPublisher()
   }
   
-  /// Executes a side effect.
+  /// Performs the specified closures when publisher events occur.
   ///
-  /// - Parameter handle: A closure that takes a parameter (the value received from the upstream publisher) and doesn't return a result.
-  /// - Returns: A publisher that uses the provided closure to execute a side effect, and then returns the value received from the upsteam publisher.
-  func perform<T>(_ handle: @escaping (Self.Output) -> Void) -> Publishers.Map<Self, T> where T == Self.Output {
-    map { value in
-      handle(value)
-      return value
-    }
+  /// This is an overloaded version of ``Publisher/handleEvents(receiveSubscription:receiveOutput:receiveCompletion:receiveCancel:receiveRequest:)`` that only
+  /// accepts a closure for the `receiveOutput` events. Use it to inspect events as they pass through the pipeline.
+  ///
+  /// - Parameters:
+  ///   - receiveOutput: A closure that executes when the publisher receives a value from the upstream publisher.
+  /// - Returns: A publisher that performs the specified closures when publisher events occur.
+  func handleEvents(_ receiveOutput: (@escaping (Self.Output) -> Void)) -> Publishers.HandleEvents<Self> {
+    self.handleEvents(receiveOutput: receiveOutput)
   }
   
-  /// Executes a side effect.
+  /// Performs the specified closures when publisher events occur.
   ///
-  /// - Parameter handle: A closure that doesn't take a parameter and doesn't return a result.
-  /// - Returns: A publisher that uses the provided closure to execute a side effect, and then returns the value received from the upsteam publisher.
-  func perform<T>(_ handle: @escaping () -> Void) -> Publishers.Map<Self, T> where T == Self.Output {
-    map { value in
-      handle()
-      return value
+  /// This is an overloaded version of ``Publisher/handleEvents(receiveSubscription:receiveOutput:receiveCompletion:receiveCancel:receiveRequest:)`` that only
+  /// accepts a closure for the `receiveOutput` events. Use it to execute side effects while events pass down the pipeline.
+  ///
+  /// - Parameters:
+  ///   - receiveOutput: A closure that executes when the publisher receives a value from the upstream publisher.
+  /// - Returns: A publisher that performs the specified closures when publisher events occur.
+  func handleEvents(_ receiveOutput: (@escaping () -> Void)) -> Publishers.HandleEvents<Self> {
+    self.handleEvents { output in
+      receiveOutput()
     }
   }
-  
-//  func toggle<T>(_ value: Binding<Bool>) -> Publishers.Map<Self, T> where T == Self.Output {
-//    return map { x in
-//      value.wrappedValue.toggle()
-//      return x
-//    }
-//  }
 }

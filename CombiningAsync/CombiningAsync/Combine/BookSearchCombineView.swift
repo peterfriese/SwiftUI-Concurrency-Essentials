@@ -22,6 +22,15 @@ fileprivate class ViewModel: ObservableObject {
   init() {
     $searchTerm
       .debounce(for: 0.8, scheduler: DispatchQueue.main)
+      .handleEvents {
+        self.isSearching = true
+      }
+//      .handleEvents({ value in
+//        self.isSearching = true
+//      })
+//      .handleEvents(receiveOutput: { value in
+//        self.isSearching = true
+//      })
       .map { searchTerm -> AnyPublisher<[Book], Never> in
         self.isSearching = true
         return self.searchBooks(matching: searchTerm)
