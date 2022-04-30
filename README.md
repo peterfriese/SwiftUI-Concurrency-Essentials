@@ -1,4 +1,5 @@
 <!-- PROJECT SHIELDS -->
+[![Swift][swift-shield]][swift-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -20,6 +21,8 @@
     An introduction to using Swift's new concurrency features in SwiftUI
     <br />
     <br />
+    <a href="https://twitter.com/peterfriese">Follow me on Twitter</a>
+    ·
     <a href="https://github.com/peterfriese/SwiftUI-Concurrency-Essentials/discussions">Discuss with me</a>
     ·
     <a href="https://github.com/peterfriese/SwiftUI-Concurrency-Essentials/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
@@ -33,13 +36,18 @@
 
 The code in this repository accompanies a series of articles and videos that aim at providing a gentle introduction to Swift Concurrency in the context of SwiftUI.
 
-* [x] Getting started with Swift Concurrency in SwiftUI ([Article](https://peterfriese.dev/swiftui-concurrency-essentials-part1/) | [Video](https://youtu.be/pvtWLmSRimk))
-* [x] Using Task cancellation for more efficient UIs ([Article](https://peterfriese.dev/swiftui-concurrency-essentials-part2/) | [Video](https://www.youtube.com/watch?v=KdHd4rwK_oc))
-* [ ] Fetching images asynchronoursly using `AsyncImage`
-* [ ] Running work in parallel with Swift Structured Concurrency
-* [ ] Using Firebase's asynchronous APIs with async/await
-* [ ] Refactoring and other tooling
-* [ ] Swift Concurrency and SwiftUI behind the scenes
+
+|                        	| Topic                                                            	| Article                                                                     	| Video                                	| Code                                 	|
+|------------------------	|------------------------------------------------------------------	|-----------------------------------------------------------------------------	|--------------------------------------	|--------------------------------------	|
+| <ul><li>[x] </li></ul> 	| Getting started with Swift Concurrency in SwiftUI                	| [link](https://peterfriese.dev/posts/swiftui-concurrency-essentials-part1/) 	| [link](https://youtu.be/pvtWLmSRimk) 	| [WordBrowser](WordBrowser)           	|
+| <ul><li>[x] </li></ul> 	| Using Task cancellation for more efficient UIs                   	| [link](https://peterfriese.dev/posts/swiftui-concurrency-essentials-part2/) 	| [link](https://youtu.be/KdHd4rwK_oc) 	| [TaskCancellation](TaskCancellation) 	|
+| <ul><li>[x] </li></ul> 	| Fetching images asynchronously using  `AsyncImage`               	|                                                                             	|                                      	|                                      	|
+| <ul><li>[ ] </li></ul> 	| Running work in parallel with Swift Structured Concurrency       	|                                                                             	|                                      	|                                      	|
+| <ul><li>[ ] </li></ul> 	| Using Firebase's asynchronous APIs with async/await              	|                                                                             	|                                      	|                                      	|
+| <ul><li>[ ] </li></ul> 	| Refactoring and other tooling                                    	|                                                                             	|                                      	|                                      	|
+| <ul><li>[ ] </li></ul> 	| Swift Concurrency and SwiftUI behind the scenes                  	|                                                                             	|                                      	|                                      	|
+| <ul><li>[x] </li></ul> 	| **The Future of Combine**, or: Combining async/await and Combine 	| [link](https://peterfriese.dev/posts/combine-vs-async/)                     	|                                      	| [CombiningAsync](CombiningAsync)     	|
+
 
 # Contributing
 
@@ -53,7 +61,7 @@ Contributions are welcome!
 # Requirements
 
 * Xcode 13
-* Swift 5.5
+* Swift 5.6
 
 # License
 
@@ -77,7 +85,7 @@ Distributed under the Apache 2 License. See `LICENSE` for more information.
 [linkedin-url]: https://www.linkedin.com/in/peterfriese
 [product-screenshot]: images/screenshot.png
 
-[swift-shield]: https://img.shields.io/badge/swift-5.4_trunk-FA7343?logo=swift&color=FA7343&style=flat-square
+[swift-shield]: https://img.shields.io/badge/swift-5.6-FA7343?logo=swift&color=FA7343&style=flat-square
 [swift-url]: https://swift.org
 
 [xcode-shield]: https://img.shields.io/badge/xcode-12.5_beta-1575F9?logo=Xcode&style=flat-square
